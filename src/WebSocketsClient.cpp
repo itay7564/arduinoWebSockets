@@ -95,7 +95,6 @@ void WebSocketsClient::begin(String host, uint16_t port, String url, String prot
 void WebSocketsClient::begin(IPAddress host, uint16_t port, const char * url, const char * protocol) {
     return begin(host.toString().c_str(), port, url, protocol);
 }
-
 #if defined(HAS_SSL)
 #if defined(SSL_AXTLS)
 void WebSocketsClient::beginSSL(const char * host, uint16_t port, const char * url, const char * fingerprint, const char * protocol) {
@@ -124,8 +123,8 @@ void WebSocketsClient::beginSSL(const char * host, uint16_t port, const char * u
     _client_cert = NULL;
     _client_key = NULL;
 }
-void beginSslWithClientCrt(const char * host, uint16_t port, const char * url = "/", const uint8_t * fingerprint = NULL,
-                               BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino") {
+void WebSocketsClient::beginSslWithClientCrt(const char * host, uint16_t port, const char * url, const uint8_t * fingerprint,
+                               BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol) {
     begin(host, port, url, protocol);
     _client.isSSL = true;
     _fingerprint  = fingerprint;
@@ -142,10 +141,10 @@ void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const ch
     _client_key = NULL;
 }
 void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const char * url, const char * CA_cert, const char * protocol) {
-    beginSslWithCA(host, port, url, new BearSSL::X509List(CA_cert), protocol)
+    beginSslWithCA(host, port, url, new BearSSL::X509List(CA_cert), protocol);
 }
-void beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url = "/", BearSSL::X509List * CA_cert = NULL, 
-                                  BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino") {
+void WebSocketsClient::beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url, BearSSL::X509List * CA_cert, 
+                                  BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol) {
     begin(host, port, url, protocol);
     _client.isSSL = true;
     _fingerprint  = SSL_FINGERPRINT_NULL;
@@ -153,9 +152,9 @@ void beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url 
     _client_cert = client_cert;
     _client_key = client_key;
 }
-void beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url = "/", const char * CA_cert = NULL, 
-                                  BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino") {
-    beginSslWithCAClientCrt(host, port,  url, new BearSSL::X509List(CA_cert), client_cert, PrivateKey, protocol);
+void WebSocketsClient::beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url, const char * CA_cert, 
+                                  BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol) {
+    beginSslWithCAClientCrt(host, port, url, new BearSSL::X509List(CA_cert), client_cert, client_key, protocol);
 }
 #endif    // SSL_AXTLS
 #endif    // HAS_SSL
