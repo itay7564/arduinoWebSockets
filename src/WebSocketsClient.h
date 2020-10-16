@@ -48,7 +48,13 @@ class WebSocketsClient : protected WebSockets {
     void beginSSL(String host, uint16_t port, String url = "/", String fingerprint = "", String protocol = "arduino");
 #else
     void beginSSL(const char * host, uint16_t port, const char * url = "/", const uint8_t * fingerprint = NULL, const char * protocol = "arduino");
+    void beginSslWithClientCrt(const char * host, uint16_t port, const char * url = "/", const uint8_t * fingerprint = NULL,
+                               BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
     void beginSslWithCA(const char * host, uint16_t port, const char * url = "/", BearSSL::X509List * CA_cert = NULL, const char * protocol = "arduino");
+    void beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url = "/", BearSSL::X509List * CA_cert = NULL, 
+                                  BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
+    void beginSslWithCAClientCrt(const char * host, uint16_t port, const char * url = "/", const char * CA_cert = NULL, 
+                                  BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
 #endif
     void beginSslWithCA(const char * host, uint16_t port, const char * url = "/", const char * CA_cert = NULL, const char * protocol = "arduino");
 #endif
@@ -59,7 +65,14 @@ class WebSocketsClient : protected WebSockets {
 #if defined(HAS_SSL)
     void beginSocketIOSSL(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * protocol = "arduino");
     void beginSocketIOSSL(String host, uint16_t port, String url = "/socket.io/?EIO=3", String protocol = "arduino");
+    void beginSocketIOSSLWithClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3",
+                          BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
+    void beginSocketIOSSLWithClientCrt(String host, uint16_t port, String url = "/socket.io/?EIO=3", 
+                          BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, String protocol = "arduino");
     void beginSocketIOSSLWithCA(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert = NULL, const char * protocol = "arduino");
+    void beginSocketIOSSLWithCAClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert = NULL,
+                          BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
+  
 #endif
 
 #if(WEBSOCKETS_NETWORK_TYPE != NETWORK_ESP8266_ASYNC)
@@ -110,6 +123,8 @@ class WebSocketsClient : protected WebSockets {
 #else
     const uint8_t * _fingerprint;
     BearSSL::X509List * _CA_cert;
+    BearSSL::X509List * _client_cert;
+    BearSSL::PrivateKey * _client_key;
 #define SSL_FINGERPRINT_NULL NULL
 #endif
 

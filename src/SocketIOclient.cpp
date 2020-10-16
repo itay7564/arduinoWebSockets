@@ -24,7 +24,38 @@ void SocketIOclient::begin(String host, uint16_t port, String url, String protoc
     WebSocketsClient::beginSocketIO(host, port, url, protocol);
     WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
 }
+#if defined(HAS_SSL)
+void SocketIOclient::beginSSL(const char * host, uint16_t port, const char * url, const char * protocol) {
+    WebSocketsClient::beginSocketIOSSL(host, port, url, protocol);
+    WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
+}
 
+void SocketIOclient::beginSSL(String host, uint16_t port, String url, String protocol) {
+    WebSocketsClient::beginSocketIOSSL(host, port, url, protocol);
+    WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
+}
+#if !defined(SSL_AXTLS)
+void SocketIOclient::beginSSLWithClientCrt(const char * host, uint16_t port, const char * url, 
+                                           BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol) {
+    WebSocketsClient::beginSocketIOSSLWithClientCrt(host, port, url, client_cert, client_key, protocol);
+    WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
+}
+void SocketIOclient::beginSSLWithClientCrt(String host, uint16_t port, String url, 
+                          BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, String protocol) {
+    WebSocketsClient::beginSocketIOSSLWithClientCrt(host, port, url, client_cert, client_key, protocol);
+    WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
+}
+void SocketIOclient::beginSSLWithCA(const char * host, uint16_t port, const char * url, const char * CA_cert, const char * protocol) {
+    WebSocketsClient::beginSocketIOSSLWithCA(host, port, url, CA_cert, protocol);
+    WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
+}
+void SocketIOclient::beginSSLWithCAClientCrt(const char * host, uint16_t port, const char * url, const char * CA_cert, 
+                                                     BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol) {
+    WebSocketsClient::beginSocketIOSSLWithCA(host, port, url, CA_cert, client_cert, client_key, protocol);
+    WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
+}
+#endif
+#endif
 /**
  * set callback function
  * @param cbEvent SocketIOclientEvent
