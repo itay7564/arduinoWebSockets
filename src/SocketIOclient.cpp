@@ -51,7 +51,7 @@ void SocketIOclient::beginSSLWithCA(const char * host, uint16_t port, const char
 }
 void SocketIOclient::beginSSLWithCAClientCrt(const char * host, uint16_t port, const char * url, const char * CA_cert, 
                                                      BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol) {
-    WebSocketsClient::beginSocketIOSSLWithCA(host, port, url, CA_cert, client_cert, client_key, protocol);
+    WebSocketsClient::beginSocketIOSSLWithCA(host, port, url, CA_cert, protocol);
     WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
 }
 #endif
