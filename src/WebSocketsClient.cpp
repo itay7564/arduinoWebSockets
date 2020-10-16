@@ -264,7 +264,7 @@ void WebSocketsClient::loop(void) {
 #error client certs not implemented when not using bearssl
 #endif
             }
-            } else if(!_CA_cert && !_fingerprint) {
+            else if(!_CA_cert && !_fingerprint) {
                 _client.ssl->setInsecure();
             }
 #endif    
