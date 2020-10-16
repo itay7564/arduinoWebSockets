@@ -8,7 +8,7 @@
 #ifndef SOCKETIOCLIENT_H_
 #define SOCKETIOCLIENT_H_
 
-#include "WebSockets.h"
+//#include "WebSockets.h"
 
 #define EIO_HEARTBEAT_INTERVAL 20000
 
@@ -49,50 +49,50 @@ class SocketIOclient : protected WebSocketsClient {
     void begin(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * protocol = "arduino");
     void begin(String host, uint16_t port, String url = "/socket.io/?EIO=3", String protocol = "arduino");
 #ifdef HAS_SSL
-    void SocketIOclient::beginSSL(const char * host, uint16_t port, const char * url= "/socket.io/?EIO=3", const char * protocol = "arduino");
-    void SocketIOclient::beginSSL(String host, uint16_t port, String url= "/socket.io/?EIO=3", String protocol = "arduino");
+    void beginSSL(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * protocol = "arduino");
+    void beginSSL(String host, uint16_t port, String url = "/socket.io/?EIO=3", String protocol = "arduino");
 #ifndef SSL_AXTLS
-    void SocketIOclient::beginSSLWithClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", 
-                                               BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol = "arduino");
-    void SocketIOclient::beginSSLWithClientCrt(String host, uint16_t port, String url = "/socket.io/?EIO=3", 
-                          BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, String protocol) {
-    void SocketIOclient::beginSSLWithCA(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert, const char * protocol = "arduino");
-    void SocketIOclient::beginSSLWithCAClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert, 
-                                                 BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol = "arduino");
+    void beginSSLWithClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3",
+        BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol  = "arduino");
+    void beginSSLWithClientCrt(String host, uint16_t port, String url = "/socket.io/?EIO=3",
+        BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, String protocol = "arduino");
+    void beginSSLWithCA(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert = NULL, const char * protocol = "arduino");
+    void beginSSLWithCAClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert = NULL,
+        BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
 #endif
 #endif
-    bool isConnected(void);
+        bool isConnected(void);
 
-    void onEvent(SocketIOclientEvent cbEvent);
+        void onEvent(SocketIOclientEvent cbEvent);
 
-    bool sendEVENT(uint8_t * payload, size_t length = 0, bool headerToPayload = false);
-    bool sendEVENT(const uint8_t * payload, size_t length = 0);
-    bool sendEVENT(char * payload, size_t length = 0, bool headerToPayload = false);
-    bool sendEVENT(const char * payload, size_t length = 0);
-    bool sendEVENT(String & payload);
+        bool sendEVENT(uint8_t * payload, size_t length = 0, bool headerToPayload = false);
+        bool sendEVENT(const uint8_t * payload, size_t length = 0);
+        bool sendEVENT(char * payload, size_t length = 0, bool headerToPayload = false);
+        bool sendEVENT(const char * payload, size_t length = 0);
+        bool sendEVENT(String & payload);
 
-    bool send(socketIOmessageType_t type, uint8_t * payload, size_t length = 0, bool headerToPayload = false);
-    bool send(socketIOmessageType_t type, const uint8_t * payload, size_t length = 0);
-    bool send(socketIOmessageType_t type, char * payload, size_t length = 0, bool headerToPayload = false);
-    bool send(socketIOmessageType_t type, const char * payload, size_t length = 0);
-    bool send(socketIOmessageType_t type, String & payload);
+        bool send(socketIOmessageType_t type, uint8_t * payload, size_t length = 0, bool headerToPayload = false);
+        bool send(socketIOmessageType_t type, const uint8_t * payload, size_t length = 0);
+        bool send(socketIOmessageType_t type, char * payload, size_t length = 0, bool headerToPayload = false);
+        bool send(socketIOmessageType_t type, const char * payload, size_t length = 0);
+        bool send(socketIOmessageType_t type, String & payload);
 
-    void loop(void);
+        void loop(void);
 
-  protected:
-    uint64_t _lastHeartbeat = 0;
-    SocketIOclientEvent _cbEvent;
-    virtual void runIOCbEvent(socketIOmessageType_t type, uint8_t * payload, size_t length) {
-        if(_cbEvent) {
-            _cbEvent(type, payload, length);
+      protected:
+        uint64_t _lastHeartbeat = 0;
+        SocketIOclientEvent _cbEvent;
+        virtual void runIOCbEvent(socketIOmessageType_t type, uint8_t * payload, size_t length) {
+            if(_cbEvent) {
+                _cbEvent(type, payload, length);
+            }
         }
-    }
 
-    // Handeling events from websocket layer
-    virtual void runCbEvent(WStype_t type, uint8_t * payload, size_t length) {
-        handleCbEvent(type, payload, length);
-    }
-    void handleCbEvent(WStype_t type, uint8_t * payload, size_t length);
-};
+        // Handeling events from websocket layer
+        virtual void runCbEvent(WStype_t type, uint8_t * payload, size_t length) {
+            handleCbEvent(type, payload, length);
+        }
+        void handleCbEvent(WStype_t type, uint8_t * payload, size_t length);
+    };
 
 #endif /* SOCKETIOCLIENT_H_ */
