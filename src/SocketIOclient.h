@@ -48,10 +48,10 @@ class SocketIOclient : protected WebSocketsClient {
 
     void begin(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * protocol = "arduino");
     void begin(String host, uint16_t port, String url = "/socket.io/?EIO=3", String protocol = "arduino");
-#if defined(HAS_SSL)
+#ifdef HAS_SSL
     void SocketIOclient::beginSSL(const char * host, uint16_t port, const char * url= "/socket.io/?EIO=3", const char * protocol = "arduino");
     void SocketIOclient::beginSSL(String host, uint16_t port, String url= "/socket.io/?EIO=3", String protocol = "arduino");
-#if !defined(SSL_AXTLS)
+#ifndef SSL_AXTLS
     void SocketIOclient::beginSSLWithClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", 
                                                BearSSL::X509List * client_cert, BearSSL::PrivateKey * client_key, const char * protocol = "arduino");
     void SocketIOclient::beginSSLWithClientCrt(String host, uint16_t port, String url = "/socket.io/?EIO=3", 
