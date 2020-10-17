@@ -1,8 +1,8 @@
 WebSocket Server and Client for Arduino [![Build Status](https://travis-ci.com/Links2004/arduinoWebSockets.svg?branch=master)](https://travis-ci.com/Links2004/arduinoWebSockets)
 ===========================================
 
-#### Warning:Do not use! This is a modified fork of [https://github.com/Links2004/arduinoWebSockets] which was not tested yet####
-###The purpose of this fork is to add a client certificates feature to the library,(after testing I will Pull request this)###
+##### Warning:Do not use! This is a modified fork of [https://github.com/Links2004/arduinoWebSockets] which was not tested yet #####
+### The purpose of this fork is to add a client certificates feature to the library,(after testing I will Pull request this) ###
 
 a WebSocket Server and Client for Arduino based on RFC6455.
 
