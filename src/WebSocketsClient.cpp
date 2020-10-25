@@ -120,16 +120,12 @@ void WebSocketsClient::beginSSL(const char * host, uint16_t port, const char * u
     _client.isSSL = true;
     _fingerprint  = fingerprint;
     _CA_cert      = NULL;
-    _client_cert = NULL;
-    _client_key = NULL;
 }
 void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const char * url, BearSSL::X509List * CA_cert, const char * protocol) {
     begin(host, port, url, protocol);
     _client.isSSL = true;
     _fingerprint  = SSL_FINGERPRINT_NULL;
     _CA_cert      = CA_cert;
-    _client_cert = NULL;
-    _client_key = NULL;
 }
 void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const char * url, const char * CA_cert, const char * protocol) {
     beginSslWithCA(host, port, url, new BearSSL::X509List(CA_cert), protocol);
