@@ -226,6 +226,7 @@ void WebSocketsClient::loop(void) {
             if(_client_cert && _client_key) {
 #if defined(SSL_BARESSL)
                 _client.ssl->setClientRSACert(_client_cert, _client_key);
+                DEBUG_WEBSOCKETS("[WS-Client] setting client certificate and key");
 #else
 #error client certs not implemented when not using bearssl
 #endif
