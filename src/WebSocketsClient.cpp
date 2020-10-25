@@ -95,6 +95,7 @@ void WebSocketsClient::begin(String host, uint16_t port, String url, String prot
 void WebSocketsClient::begin(IPAddress host, uint16_t port, const char * url, const char * protocol) {
     return begin(host.toString().c_str(), port, url, protocol);
 }
+
 #if defined(HAS_SSL)
 #if defined(SSL_AXTLS)
 void WebSocketsClient::beginSSL(const char * host, uint16_t port, const char * url, const char * fingerprint, const char * protocol) {
@@ -114,7 +115,7 @@ void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const ch
     _fingerprint  = SSL_FINGERPRINT_NULL;
     _CA_cert      = CA_cert;
 }
-#else //client certificates implemented only on BearSSL 
+#else
 void WebSocketsClient::beginSSL(const char * host, uint16_t port, const char * url, const uint8_t * fingerprint, const char * protocol) {
     begin(host, port, url, protocol);
     _client.isSSL = true;
@@ -158,6 +159,7 @@ void WebSocketsClient::beginSocketIOSSL(const char * host, uint16_t port, const 
     _client.isSSL      = true;
     _fingerprint       = SSL_FINGERPRINT_NULL;
 }
+
 void WebSocketsClient::beginSocketIOSSL(String host, uint16_t port, String url, String protocol) {
     beginSocketIOSSL(host.c_str(), port, url.c_str(), protocol.c_str());
 }
