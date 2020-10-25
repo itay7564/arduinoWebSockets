@@ -58,38 +58,38 @@ class SocketIOclient : protected WebSocketsClient {
     void setSSLClientCertKey(BearSSL::X509List * clientCert = NULL, BearSSL::PrivateKey * clientPrivateKey = NULL);
 #endif
 #endif
-        bool isConnected(void);
+    bool isConnected(void);
 
-        void onEvent(SocketIOclientEvent cbEvent);
+    void onEvent(SocketIOclientEvent cbEvent);
 
-        bool sendEVENT(uint8_t * payload, size_t length = 0, bool headerToPayload = false);
-        bool sendEVENT(const uint8_t * payload, size_t length = 0);
-        bool sendEVENT(char * payload, size_t length = 0, bool headerToPayload = false);
-        bool sendEVENT(const char * payload, size_t length = 0);
-        bool sendEVENT(String & payload);
+    bool sendEVENT(uint8_t * payload, size_t length = 0, bool headerToPayload = false);
+    bool sendEVENT(const uint8_t * payload, size_t length = 0);
+    bool sendEVENT(char * payload, size_t length = 0, bool headerToPayload = false);
+    bool sendEVENT(const char * payload, size_t length = 0);
+    bool sendEVENT(String & payload);
 
-        bool send(socketIOmessageType_t type, uint8_t * payload, size_t length = 0, bool headerToPayload = false);
-        bool send(socketIOmessageType_t type, const uint8_t * payload, size_t length = 0);
-        bool send(socketIOmessageType_t type, char * payload, size_t length = 0, bool headerToPayload = false);
-        bool send(socketIOmessageType_t type, const char * payload, size_t length = 0);
-        bool send(socketIOmessageType_t type, String & payload);
+    bool send(socketIOmessageType_t type, uint8_t * payload, size_t length = 0, bool headerToPayload = false);
+    bool send(socketIOmessageType_t type, const uint8_t * payload, size_t length = 0);
+    bool send(socketIOmessageType_t type, char * payload, size_t length = 0, bool headerToPayload = false);
+    bool send(socketIOmessageType_t type, const char * payload, size_t length = 0);
+    bool send(socketIOmessageType_t type, String & payload);
 
-        void loop(void);
+    void loop(void);
 
-      protected:
-        uint64_t _lastHeartbeat = 0;
-        SocketIOclientEvent _cbEvent;
-        virtual void runIOCbEvent(socketIOmessageType_t type, uint8_t * payload, size_t length) {
-            if(_cbEvent) {
-                _cbEvent(type, payload, length);
-            }
+  protected:
+    uint64_t _lastHeartbeat = 0;
+    SocketIOclientEvent _cbEvent;
+    virtual void runIOCbEvent(socketIOmessageType_t type, uint8_t * payload, size_t length) {
+        if(_cbEvent) {
+            _cbEvent(type, payload, length);
         }
+    }
 
-        // Handeling events from websocket layer
-        virtual void runCbEvent(WStype_t type, uint8_t * payload, size_t length) {
-            handleCbEvent(type, payload, length);
-        }
-        void handleCbEvent(WStype_t type, uint8_t * payload, size_t length);
-    };
+    // Handeling events from websocket layer
+    virtual void runCbEvent(WStype_t type, uint8_t * payload, size_t length) {
+        handleCbEvent(type, payload, length);
+    }
+    void handleCbEvent(WStype_t type, uint8_t * payload, size_t length);
+};
 
 #endif /* SOCKETIOCLIENT_H_ */
