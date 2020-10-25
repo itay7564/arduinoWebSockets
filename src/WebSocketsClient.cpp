@@ -134,12 +134,12 @@ void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const ch
     beginSslWithCA(host, port, url, new BearSSL::X509List(CA_cert), protocol);
 }
 
-void setSSLClientCertKey(BearSSL::X509List * clientCert, BearSSL::PrivateKey * clientPrivateKey) {
+void WebSocketsClient::setSSLClientCertKey(BearSSL::X509List * clientCert, BearSSL::PrivateKey * clientPrivateKey) {
     _client_cert = clientCert;
     _client_key = clientPrivateKey;
 }
 
-void setSSLClientCertKey(const char * clientCert, const char * clientPrivateKey) {
+void WebSocketsClient::setSSLClientCertKey(const char * clientCert, const char * clientPrivateKey) {
     setSSLClientCertKey(new BearSSL::X509List(clientCert), new BearSSL::PrivateKey(clientPrivateKey));
 }
 
