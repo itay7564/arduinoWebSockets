@@ -45,11 +45,11 @@ void SocketIOclient::beginSSLWithCA(const char * host, uint16_t port, const char
     WebSocketsClient::enableHeartbeat(60 * 1000, 90 * 1000, 5);
 }
 
-void SocketIOclient::setSSLClientCertKey(const char * clientCert = NULL, const char * clientPrivateKey = NULL) {
+void SocketIOclient::setSSLClientCertKey(const char * clientCert, const char * clientPrivateKey) {
     WebSocketsClient::setSSLClientCertKey(clientCert, clientPrivateKey);
 }
 
-void SocketIOclient::setSSLClientCertKey(BearSSL::X509List * clientCert = NULL, BearSSL::PrivateKey * clientPrivateKey = NULL) {
+void SocketIOclient::setSSLClientCertKey(BearSSL::X509List * clientCert, BearSSL::PrivateKey * clientPrivateKey) {
     WebSocketsClient::setSSLClientCertKey(clientCert, clientPrivateKey);
 }
 
