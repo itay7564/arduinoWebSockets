@@ -49,8 +49,8 @@ class WebSocketsClient : protected WebSockets {
 #else
     void beginSSL(const char * host, uint16_t port, const char * url = "/", const uint8_t * fingerprint = NULL, const char * protocol = "arduino");
     void beginSslWithCA(const char * host, uint16_t port, const char * url = "/", BearSSL::X509List * CA_cert = NULL, const char * protocol = "arduino");
-    void setSSLClientCertKey(const char * clientCert = NULL, const char * clientPrivateKey = NULL);
     void setSSLClientCertKey(BearSSL::X509List * clientCert = NULL, BearSSL::PrivateKey * clientPrivateKey = NULL);
+    void setSSLClientCertKey(const char * clientCert = NULL, const char * clientPrivateKey = NULL);
 #endif
     void beginSslWithCA(const char * host, uint16_t port, const char * url = "/", const char * CA_cert = NULL, const char * protocol = "arduino");
 #endif
