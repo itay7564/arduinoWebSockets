@@ -122,22 +122,25 @@ void WebSocketsClient::beginSSL(const char * host, uint16_t port, const char * u
     _fingerprint  = fingerprint;
     _CA_cert      = NULL;
 }
+
 void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const char * url, BearSSL::X509List * CA_cert, const char * protocol) {
     begin(host, port, url, protocol);
     _client.isSSL = true;
     _fingerprint  = SSL_FINGERPRINT_NULL;
     _CA_cert      = CA_cert;
 }
+
 void WebSocketsClient::beginSslWithCA(const char * host, uint16_t port, const char * url, const char * CA_cert, const char * protocol) {
     beginSslWithCA(host, port, url, new BearSSL::X509List(CA_cert), protocol);
 }
 
-void setSSLClientCertKey(const char * clientCert, const char * clientPrivateKey) {
-    setSSLClientCertKey(new BearSSL::X509List(clientCert), new BearSSL::PrivateKey(clientPrivateKey));
-}
 void setSSLClientCertKey(BearSSL::X509List * clientCert, BearSSL::PrivateKey * clientPrivateKey) {
     _client_cert = clientCert;
     _client_key = clientPrivateKey;
+}
+
+void setSSLClientCertKey(const char * clientCert, const char * clientPrivateKey) {
+    setSSLClientCertKey(new BearSSL::X509List(clientCert), new BearSSL::PrivateKey(clientPrivateKey));
 }
 
 #endif    // SSL_AXTLS
