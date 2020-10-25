@@ -52,13 +52,10 @@ class SocketIOclient : protected WebSocketsClient {
     void beginSSL(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * protocol = "arduino");
     void beginSSL(String host, uint16_t port, String url = "/socket.io/?EIO=3", String protocol = "arduino");
 #ifndef SSL_AXTLS
-    void beginSSLWithClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3",
-        BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol  = "arduino");
-    void beginSSLWithClientCrt(String host, uint16_t port, String url = "/socket.io/?EIO=3",
-        BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, String protocol = "arduino");
     void beginSSLWithCA(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert = NULL, const char * protocol = "arduino");
-    void beginSSLWithCAClientCrt(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", const char * CA_cert = NULL,
-        BearSSL::X509List * client_cert = NULL, BearSSL::PrivateKey * client_key = NULL, const char * protocol = "arduino");
+    void beginSSLWithCA(const char * host, uint16_t port, const char * url = "/socket.io/?EIO=3", BearSSL::X509List * CA_cert = NULL, const char * protocol = "arduino");
+    void setSSLClientCertKey(const char * clientCert = NULL, const char * clientPrivateKey = NULL);
+    void setSSLClientCertKey(BearSSL::X509List * clientCert = NULL, BearSSL::PrivateKey * clientPrivateKey = NULL);
 #endif
 #endif
         bool isConnected(void);
